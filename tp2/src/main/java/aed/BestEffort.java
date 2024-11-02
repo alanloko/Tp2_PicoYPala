@@ -4,6 +4,14 @@ import java.util.ArrayList;
 
 public class BestEffort {
     //Completar atributos privados
+    HeapMin TrasladosPorAntiguedad;
+    HeapMax TrasladosPorGanancia;
+    int CiudadMasRedituable;
+    ArrayList<Integer> CiudaddesConMayorGanancia;
+    ArrayList<Integer> CiudaddesConMayorPerdida;
+    int SumatoriaDeTraslados;
+    int CantDeTraslados;
+
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
         // Implementar
@@ -24,23 +32,19 @@ public class BestEffort {
     }
 
     public int ciudadConMayorSuperavit(){
-        // Implementar
-        return 0;
+        return CiudadMasRedituable;
     }
 
     public ArrayList<Integer> ciudadesConMayorGanancia(){
-        // Implementar
-        return null;
+        return CiudaddesConMayorGanancia;
     }
 
     public ArrayList<Integer> ciudadesConMayorPerdida(){
-        // Implementar
-        return null;
+        return CiudaddesConMayorPerdida;
     }
 
     public int gananciaPromedioPorTraslado(){
-        // Implementar
-        return 0;
+        return SumatoriaDeTraslados / CantDeTraslados;
     }
     
 }
