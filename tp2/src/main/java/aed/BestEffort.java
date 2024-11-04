@@ -6,16 +6,17 @@ public class BestEffort {
     //Completar atributos privados
     Heap TrasladosPorAntiguedad;
     Heap TrasladosPorGanancia;
-    int CiudadMasRedituable;
+    int[] IndexDeAaG; // Index De Antiguedad a Ganancias, Index De Ganancias a Antiguedad;
+    int IndexDeGaA; // Creamos 2 listas donde se almacenan los inidices de sus elementos con respecto al otro Heap
     ArrayList<Integer> CiudaddesConMayorGanancia;
     ArrayList<Integer> CiudaddesConMayorPerdida;
     int SumatoriaDeTraslados;
     int CantDeTraslados;
-
+    int CiudadMasRedituable;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
-        TrasladosPorAntiguedad.HeapMin(traslados);
-        TrasladosPorAntiguedad.HeapMax(traslados);
+        TrasladosPorAntiguedad = new Heap(traslados, false);
+        TrasladosPorGanancia = new Heap(traslados,true);
         SumatoriaDeTraslados = 0;
         CantDeTraslados = 0;
     }
@@ -27,7 +28,7 @@ public class BestEffort {
     }
 
     public int[] despacharMasRedituables(int n){
-        if(TrasladosPorGanancia.elementos > n) {
+        if(TrasladosPorGanancia.elementos() > n) {
             return TrasladosPorGanancia.listaOrdenada();
         }
         ArrayList<Integer> despacho = new ArrayList<Integer>();
