@@ -14,6 +14,7 @@ public class Heap {
         for (int i = 0; i < elementos; i++) {
             listaHeap.add(t[i]);
         }
+        // arranco en el anteultimo nivel, en su ultimo elemento
         heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
     }
 
