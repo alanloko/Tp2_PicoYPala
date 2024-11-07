@@ -11,6 +11,7 @@ public class Heap {
                                                    // HeapMin
         prioridad = new Comparador(esMaxHeap);
         elementos = t.length;
+        listaHeap = new ArrayList<Traslado>();
         for (int i = 0; i < elementos; i++) {
             listaHeap.add(t[i]);
         }
@@ -19,7 +20,7 @@ public class Heap {
     }
 
     public void heapify(Traslado actual, int indice) {
-        if (indice >= 0) {
+        if (indice > 0) {
             siftDown(actual, indice);
             heapify(listaHeap.get(indice - 1), indice - 1);
         }
@@ -128,4 +129,6 @@ public class Heap {
     public int elementos() {
         return elementos;
     }
+
+    
 }

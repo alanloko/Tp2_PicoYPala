@@ -6,8 +6,10 @@ public class BestEffort {
     //Completar atributos privados
     Heap TrasladosPorAntiguedad;
     Heap TrasladosPorGanancia;
-    int[] IndexDeAaG; // Index De Antiguedad a Ganancias, Index De Ganancias a Antiguedad;
-    int IndexDeGaA; // Creamos 2 listas donde se almacenan los inidices de sus elementos con respecto al otro Heap
+    ArrayList<Integer> PosicionEnAntiguedad;
+    ArrayList<Integer> PosicionEnGanancia;
+    int[] GananciaDeCiudades;
+    int[] PerdidaDeCiudades;
     ArrayList<Integer> CiudaddesConMayorGanancia;
     ArrayList<Integer> CiudaddesConMayorPerdida;
     int SumatoriaDeTraslados;
@@ -15,6 +17,10 @@ public class BestEffort {
     int CiudadMasRedituable;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
+        PosicionEnGanancia = new ArrayList<>();
+        PosicionEnAntiguedad = new ArrayList<>();
+        GananciaDeCiudades = new int[cantCiudades];
+        PerdidaDeCiudades = new int[cantCiudades];
         TrasladosPorAntiguedad = new Heap(traslados, false);
         TrasladosPorGanancia = new Heap(traslados,true);
         SumatoriaDeTraslados = 0;
@@ -65,5 +71,6 @@ public class BestEffort {
     public int gananciaPromedioPorTraslado(){
         return SumatoriaDeTraslados / CantDeTraslados;
     }
+    
     
 }
