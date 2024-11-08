@@ -59,6 +59,22 @@ public class PicoYPalaTests {
         assertTrue(maxheap.obtener(1).compareTo(nuevosTraslados[1]));
         assertTrue(maxheap.obtener(2).compareTo(nuevosTraslados[0]));
     }
+    @Test
+    void prueba_heapify() {
+        Traslado[] listaT = new Traslado[] {
+            new Traslado(1, 0, 1, 200, 15),
+            new Traslado(2, 0, 1, 100, 40),
+            new Traslado(3, 2, 0, 500, 30)
+        };
+        Heap maxheap = new Heap(listaT, true);
+
+        assertEquals(3, maxheap.elementos());
+
+        assertTrue(maxheap.obtener(0).compareTo(listaT[2]));
+        assertTrue(maxheap.obtener(1).compareTo(listaT[1]));
+        assertTrue(maxheap.obtener(2).compareTo(listaT[0]));
+
+    }
 
 
 
