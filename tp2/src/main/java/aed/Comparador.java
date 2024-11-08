@@ -24,7 +24,7 @@ public class Comparador {
             
             
         } else {
-            if(Integer.compare(Traslado1.gananciaNeta, Traslado2.gananciaNeta) < 0) {
+            if(Integer.compare(Traslado1.timestamp, Traslado2.gananciaNeta) < 0) {
                 return Traslado1;
             } else {
                 return Traslado2;

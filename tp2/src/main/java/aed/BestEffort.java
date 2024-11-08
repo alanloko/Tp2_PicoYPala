@@ -6,6 +6,7 @@ public class BestEffort {
     //Completar atributos privados
     Heap TrasladosPorAntiguedad;
     Heap TrasladosPorGanancia;
+    Heap Redituabilidad;
     ArrayList<Integer> PosicionEnAntiguedad;
     ArrayList<Integer> PosicionEnGanancia;
     int[] GananciaDeCiudades;
@@ -14,7 +15,6 @@ public class BestEffort {
     ArrayList<Integer> CiudaddesConMayorPerdida;
     int SumatoriaDeTraslados;
     int CantDeTraslados;
-    int CiudadMasRedituable;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
         PosicionEnGanancia = new ArrayList<>();
@@ -57,7 +57,7 @@ public class BestEffort {
     }
 
     public int ciudadConMayorSuperavit(){
-        return CiudadMasRedituable;
+        return Redituabilidad.pop();
     }
 
     public ArrayList<Integer> ciudadesConMayorGanancia(){

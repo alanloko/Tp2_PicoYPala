@@ -13,10 +13,16 @@ public class Heap {
         elementos = t.length;
         listaHeap = new ArrayList<Traslado>();
         for (int i = 0; i < elementos; i++) {
+            if(esMaxHeap) {
+                t[i].IndexRedituable = i;
+            } else {
+                t[i].IndexAntiguedad = i;
+            }
             listaHeap.add(t[i]);
         }
         // arranco en el anteultimo nivel, en su ultimo elemento
         heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
+        //
     }
 
     public void heapify(Traslado actual, int indice) {
@@ -128,6 +134,11 @@ public class Heap {
 
     public int elementos() {
         return elementos;
+    }
+
+    public int pop() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'pop'");
     }
 
     
