@@ -1,34 +1,57 @@
 package aed;
 
-
-public class Comparador {
+public class Comparador<T> {
     private Boolean esMax;
-    public Comparador(Boolean esHeapMax) {
+    private Boolean HeapCiudades;
+
+    public Comparador(Boolean esHeapMax, Boolean EsHeapDeCiudad) {
         esMax = esHeapMax;
+        HeapCiudades = EsHeapDeCiudad;
     }
-    public Traslado comparar(Traslado Traslado1, Traslado Traslado2) {
-        if (esMax) {
-            int comparacion = Integer.compare(Traslado1.gananciaNeta, Traslado2.gananciaNeta);
-            if(comparacion == 0) {
-                if(Integer.compare(Traslado1.id, Traslado2.id) < 0) {
-                    return Traslado1;
-                } else { 
-                    return Traslado2;
+
+    public int comparar(T obj1, T obj2) {
+        int o1 = 1; // objeto1
+        int o2 = 2; // objeto2
+        if (!HeapCiudades) {
+            Traslado t1 = (Traslado) obj1;
+            Traslado t2 = (Traslado) obj2;
+            if (esMax) {
+                int comparacion = Integer.compare(t1.gananciaNeta, t2.gananciaNeta);
+                if (comparacion == 0) {
+                    if (Integer.compare(t1.id, t2.id) < 0) {
+                        return o1;
+                    } else {
+                        return o2;
+                    }
                 }
-            } 
-            if(comparacion < 0) {
-                return Traslado2;
+                if (comparacion < 0) {
+                    return o2;
+                } else {
+                    return o1;
+                }
+
             } else {
-                return Traslado1;
+                if (Integer.compare(t1.timestamp, t2.timestamp) < 0) {
+                    return o1;
+                } else {
+                    return o2;
+                }
             }
-            
-            
         } else {
-            if(Integer.compare(Traslado1.timestamp, Traslado2.timestamp) < 0) {
-                return Traslado1;
-            } else {
-                return Traslado2;
+            Ciudad c1 = (Ciudad) obj1;
+            Ciudad c2 = (Ciudad) obj2;
+            int comparacion = Integer.compare(c1.Redituabilidad, c2.Redituabilidad);
+            if (comparacion == 0) {
+                if (Integer.compare(c1.Ciudad, c2.Ciudad) < 0) {
+                    return o1;
+                } else {
+                    return o2;
+                }
+            } else if (comparacion < 0) {
+                return o2;
             }
+            return o1;
+
         }
     }
 

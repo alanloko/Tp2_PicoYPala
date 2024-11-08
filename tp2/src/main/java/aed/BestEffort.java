@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 public class BestEffort {
     //Completar atributos privados
-    Heap TrasladosPorAntiguedad;
-    Heap TrasladosPorGanancia;
-    Heap Redituabilidad;
-    ArrayList<Integer> PosicionEnAntiguedad;
-    ArrayList<Integer> PosicionEnGanancia;
+    Heap<Traslado> TrasladosPorAntiguedad;
+    Heap<Traslado> TrasladosPorGanancia;
+    Heap<Ciudad> Redituabilidad;
     int[] GananciaDeCiudades;
     int[] PerdidaDeCiudades;
     ArrayList<Integer> CiudaddesConMayorGanancia;
@@ -17,12 +15,11 @@ public class BestEffort {
     int CantDeTraslados;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
-        PosicionEnGanancia = new ArrayList<>();
-        PosicionEnAntiguedad = new ArrayList<>();
+        Heap<Ciudad> Redituabilidad = new Heap<>(null, true, new Comparador<>(true,true));
         GananciaDeCiudades = new int[cantCiudades];
         PerdidaDeCiudades = new int[cantCiudades];
-        TrasladosPorAntiguedad = new Heap(traslados, false);
-        TrasladosPorGanancia = new Heap(traslados,true);
+        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(true,false));
+        TrasladosPorGanancia = new Heap<Traslado>(traslados,true,new Comparador<>(true,false));
         SumatoriaDeTraslados = 0;
         CantDeTraslados = 0;
     }

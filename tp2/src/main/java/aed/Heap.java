@@ -2,22 +2,16 @@ package aed;
 
 import java.util.ArrayList;
 
-public class Heap {
-    private ArrayList<Traslado> listaHeap;
-    private Comparador prioridad;
+public class Heap<T> {
+    private ArrayList<T> listaHeap;
+    private Comparador<T> prioridad;
     private int elementos;
 
-    public Heap(Traslado[] t, Boolean esMaxHeap) { // Bool esMaxHeap para saber si el constructor crea un heapMax o
-                                                   // HeapMin
-        prioridad = new Comparador(esMaxHeap);
+    public Heap(T[] t, Boolean esMaxHeap, Comparador<T> comparador) { // Bool esMaxHeap para saber si el constructor crea un heapMax o HeapMin
+        prioridad = comparador;
         elementos = t.length;
-        listaHeap = new ArrayList<Traslado>();
+        listaHeap = new ArrayList<T>();
         for (int i = 0; i < elementos; i++) {
-            if(esMaxHeap) {
-                t[i].IndexRedituable = i;
-            } else {
-                t[i].IndexAntiguedad = i;
-            }
             listaHeap.add(t[i]);
         }
         // arranco en el anteultimo nivel, en su ultimo elemento
@@ -25,18 +19,18 @@ public class Heap {
         //
     }
 
-    public void heapify(Traslado actual, int indice) {
+    public void heapify(T actual, int indice) {
         if (indice > 0) {
             siftDown(actual, indice);
             heapify(listaHeap.get(indice - 1), indice - 1);
         }
     }
 
-    public void siftDown(Traslado actual, int indice) {
+    public void siftDown(T actual, int indice) {
         int posicionHijoMayor = PosicionHijoMayor(indice);
-        Traslado hijo = hijoConPriori(indice);
+        T hijo = hijoConPriori(indice);
         if (hijo != null) {
-            if (actual != prioridad.comparar(actual, hijo)) {
+            if (prioridad.comparar(actual, hijo) !=1) {
                 listaHeap.set(posicionHijoMayor, actual);
                 listaHeap.set(indice, hijo);
                 siftDown(actual, posicionHijoMayor);
@@ -44,10 +38,10 @@ public class Heap {
         }
     }
 
-    public Traslado hijoConPriori(int indice) {
+    public T hijoConPriori(int indice) {
         int cantHijos = 0;
-        Traslado hijoDerecho = null;
-        Traslado hijoIzquierdo = null;
+        T hijoDerecho = null;
+        T hijoIzquierdo = null;
         if (hijoDer(indice) < elementos) {
             hijoDerecho = listaHeap.get(hijoDer(indice));
             cantHijos++;
@@ -57,7 +51,11 @@ public class Heap {
             cantHijos++;
         }
         if (cantHijos == 2) {
-            return prioridad.comparar(hijoDerecho, hijoIzquierdo);
+            if(prioridad.comparar(hijoDerecho, hijoIzquierdo) == 1) {
+                return hijoDerecho;
+            } else {
+                return hijoIzquierdo;
+            }
         } else if (cantHijos == 1) {
             return hijoIzquierdo;
         }
@@ -66,8 +64,8 @@ public class Heap {
 
     public int PosicionHijoMayor(int indice) {
         int cantHijos = 0;
-        Traslado hijoDerecho = null;
-        Traslado hijoIzquierdo = null;
+        T hijoDerecho = null;
+        T hijoIzquierdo = null;
         if (hijoDer(indice) < elementos) {
             hijoDerecho = listaHeap.get(hijoDer(indice));
             cantHijos++;
@@ -77,7 +75,7 @@ public class Heap {
             cantHijos++;
         }
         if (cantHijos == 2) {
-            if(hijoDerecho == prioridad.comparar(hijoDerecho, hijoIzquierdo)) {
+            if(prioridad.comparar(hijoDerecho, hijoIzquierdo) == 1) {
                 return hijoDer(indice);
             } else {
                 return hijoIzq(indice);
@@ -100,18 +98,18 @@ public class Heap {
 
     }
 
-    public void AgregarElementos(Traslado[] t) {
+    public void AgregarElementos(T[] t) {
         for (int i = 0; i < t.length; i++) {
             listaHeap.add(t[i]);
             siftUp(t[i], listaHeap.size() - 1);
         }
     }
-    public void siftUp(Traslado actual, int indice) {
+    public void siftUp(T actual, int indice) {
         int posPadre = padre(indice);
-        Traslado padre = null;
+        T padre = null;
         if(posPadre > 0) {
             padre = listaHeap.get(posPadre);
-            if (padre != prioridad.comparar(actual, padre)) {
+            if (1 != prioridad.comparar(actual, padre)) {
                 listaHeap.set(posPadre, actual);
                 listaHeap.set(indice, padre);
                 siftUp(actual, posPadre);
@@ -128,7 +126,7 @@ public class Heap {
         throw new UnsupportedOperationException("Unimplemented method 'eliminarElemento'");
     }
 
-    public Traslado obtener(int i) {
+    public T obtener(int i) {
         return listaHeap.get(i);
     }
 
