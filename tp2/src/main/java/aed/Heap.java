@@ -16,8 +16,9 @@ public class Heap<T> {
             listaHeap.add(t[i]);
         }
         // arranco en el anteultimo nivel, en su ultimo elemento
-        heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
-        //
+        if (elementos != 0) {
+            heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
+        }
     }
 
     public void heapify(T actual, int indice) {
@@ -87,7 +88,11 @@ public class Heap<T> {
     }
 
     public int padre(int i) {
-        return (i - 1) / 2;
+        if(i - 1 < 0) {
+            return -1;
+        } else {
+            return (i - 1) / 2;
+        }
     }
 
     public int hijoIzq(int i) {
@@ -100,6 +105,7 @@ public class Heap<T> {
     }
 
     public void AgregarElementos(T[] t) {
+        elementos += t.length;
         for (int i = 0; i < t.length; i++) {
             listaHeap.add(t[i]);
             siftUp(t[i], listaHeap.size() - 1);
@@ -109,7 +115,7 @@ public class Heap<T> {
     public void siftUp(T actual, int indice) {
         int posPadre = padre(indice);
         T padre = null;
-        if (posPadre > 0) {
+        if (posPadre >= 0) {
             padre = listaHeap.get(posPadre);
             if (1 != prioridad.comparar(actual, padre)) {
                 listaHeap.set(posPadre, actual);
@@ -121,7 +127,7 @@ public class Heap<T> {
 
     public int[] listaOrdenada() {
         int[] listaOrdenada = new int[elementos];
-        for(int i = 0; i < elementos; i++) {
+        for (int i = 0; i < elementos; i++) {
             Traslado t = (Traslado) this.pop();
             listaOrdenada[i] = t.id;
         }
@@ -137,6 +143,7 @@ public class Heap<T> {
         } else {
             listaHeap.remove(elementos - 1);
         }
+        elementos--;
     }
 
     public T obtener(int i) {
@@ -150,7 +157,7 @@ public class Heap<T> {
     public T pop() {
         T priori = listaHeap.get(0);
         T obj = listaHeap.get(elementos - 1);
-        listaHeap.set(0,obj);
+        listaHeap.set(0, obj);
         listaHeap.remove(elementos - 1);
         siftDown(obj, 0);
         elementos--;
