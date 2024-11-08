@@ -7,7 +7,8 @@ public class Heap<T> {
     private Comparador<T> prioridad;
     private int elementos;
 
-    public Heap(T[] t, Boolean esMaxHeap, Comparador<T> comparador) { // Bool esMaxHeap para saber si el constructor crea un heapMax o HeapMin
+    public Heap(T[] t, Boolean esMaxHeap, Comparador<T> comparador) { // Bool esMaxHeap para saber si el constructor
+                                                                      // crea un heapMax o HeapMin
         prioridad = comparador;
         elementos = t.length;
         listaHeap = new ArrayList<T>();
@@ -30,7 +31,7 @@ public class Heap<T> {
         int posicionHijoMayor = PosicionHijoMayor(indice);
         T hijo = hijoConPriori(indice);
         if (hijo != null) {
-            if (prioridad.comparar(actual, hijo) !=1) {
+            if (prioridad.comparar(actual, hijo) != 1) {
                 listaHeap.set(posicionHijoMayor, actual);
                 listaHeap.set(indice, hijo);
                 siftDown(actual, posicionHijoMayor);
@@ -51,7 +52,7 @@ public class Heap<T> {
             cantHijos++;
         }
         if (cantHijos == 2) {
-            if(prioridad.comparar(hijoDerecho, hijoIzquierdo) == 1) {
+            if (prioridad.comparar(hijoDerecho, hijoIzquierdo) == 1) {
                 return hijoDerecho;
             } else {
                 return hijoIzquierdo;
@@ -75,7 +76,7 @@ public class Heap<T> {
             cantHijos++;
         }
         if (cantHijos == 2) {
-            if(prioridad.comparar(hijoDerecho, hijoIzquierdo) == 1) {
+            if (prioridad.comparar(hijoDerecho, hijoIzquierdo) == 1) {
                 return hijoDer(indice);
             } else {
                 return hijoIzq(indice);
@@ -104,10 +105,11 @@ public class Heap<T> {
             siftUp(t[i], listaHeap.size() - 1);
         }
     }
+
     public void siftUp(T actual, int indice) {
         int posPadre = padre(indice);
         T padre = null;
-        if(posPadre > 0) {
+        if (posPadre > 0) {
             padre = listaHeap.get(posPadre);
             if (1 != prioridad.comparar(actual, padre)) {
                 listaHeap.set(posPadre, actual);
@@ -116,14 +118,25 @@ public class Heap<T> {
             }
         }
     }
+
     public int[] listaOrdenada() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listaOrdenada'");
+        int[] listaOrdenada = new int[elementos];
+        for(int i = 0; i < elementos; i++) {
+            Traslado t = (Traslado) this.pop();
+            listaOrdenada[i] = t.id;
+        }
+        return listaOrdenada;
     }
 
     public void eliminarElemento(int i) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarElemento'");
+        if (i < elementos - 1) {
+            T obj = listaHeap.get(i);
+            listaHeap.set(i, listaHeap.get(elementos - 1));
+            listaHeap.remove(elementos - 1);
+            siftDown(obj, i);
+        } else {
+            listaHeap.remove(elementos - 1);
+        }
     }
 
     public T obtener(int i) {
@@ -134,10 +147,14 @@ public class Heap<T> {
         return elementos;
     }
 
-    public int pop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pop'");
+    public T pop() {
+        T priori = listaHeap.get(0);
+        T obj = listaHeap.get(elementos - 1);
+        listaHeap.set(0,obj);
+        listaHeap.remove(elementos - 1);
+        siftDown(obj, 0);
+        elementos--;
+        return priori;
     }
 
-    
 }

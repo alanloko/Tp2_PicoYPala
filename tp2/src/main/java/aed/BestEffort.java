@@ -54,7 +54,7 @@ public class BestEffort {
     }
 
     public int ciudadConMayorSuperavit(){
-        return Redituabilidad.pop();
+        return Redituabilidad.pop().Redituabilidad;
     }
 
     public ArrayList<Integer> ciudadesConMayorGanancia(){
