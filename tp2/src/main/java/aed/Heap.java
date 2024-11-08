@@ -92,11 +92,11 @@ public class Heap {
     }
 
     public int hijoIzq(int i) {
-        return (2 * 1 + 1);
+        return (2 * i + 1);
     }
 
     public int hijoDer(int i) {
-        return (2 * 1 + 2);
+        return (2 * i + 2);
 
     }
 

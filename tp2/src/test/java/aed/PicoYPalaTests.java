@@ -40,6 +40,40 @@ public class PicoYPalaTests {
         }
     }
 
+    //Tests Heap
+
+    @Test
+    void nuevo_maxheap_vacio() {
+        Traslado[] listaT  = new Traslado[]{};
+        Heap maxheap = new Heap(listaT, true);
+        Traslado[] nuevosTraslados = new Traslado[] {
+            new Traslado(1, 0, 1, 200, 15),
+            new Traslado(2, 0, 1, 100, 40),
+            new Traslado(3, 2, 0, 500, 30)
+        };
+        maxheap.AgregarElementos(nuevosTraslados);
+
+        assertEquals(3, maxheap.elementos());
+
+        assertTrue(maxheap.obtener(0).compareTo(nuevosTraslados[2]));
+        assertTrue(maxheap.obtener(1).compareTo(nuevosTraslados[1]));
+        assertTrue(maxheap.obtener(2).compareTo(nuevosTraslados[0]));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Tests BestEffort 
+
     @Test
     void despachar_con_mas_ganancia_de_a_uno(){
         BestEffort sis = new BestEffort(this.cantCiudades, this.listaTraslados);

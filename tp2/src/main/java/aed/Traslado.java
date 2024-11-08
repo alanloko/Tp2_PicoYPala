@@ -24,4 +24,9 @@ public class Traslado {
         this.gananciaNeta = gananciaNeta;
         this.timestamp = timestamp;
     }
+
+    public boolean compareTo(Traslado traslado){
+        return (id == traslado.id && origen == traslado.origen && destino == traslado.destino && gananciaNeta == traslado.gananciaNeta && timestamp == traslado.timestamp && IndexRedituable == traslado.IndexRedituable && IndexAntiguedad == traslado.IndexAntiguedad);
+        
+    }
 }
