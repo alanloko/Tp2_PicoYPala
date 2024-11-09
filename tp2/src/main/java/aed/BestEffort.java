@@ -15,7 +15,8 @@ public class BestEffort {
     int CantDeTraslados;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
-        Heap<Ciudad> Redituabilidad = new Heap<>(null, true, new Comparador<>(true,true));
+        Ciudad[] c = new Ciudad[0];
+        Heap<Ciudad> Redituabilidad = new Heap<>(c, true, new Comparador<>(true,true));
         GananciaDeCiudades = new int[cantCiudades];
         PerdidaDeCiudades = new int[cantCiudades];
         TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(true,false));
@@ -34,17 +35,10 @@ public class BestEffort {
         if(TrasladosPorGanancia.elementos() > n) {
             return TrasladosPorGanancia.listaOrdenada();
         }
-        ArrayList<Integer> despacho = new ArrayList<Integer>();
+        int[] despacho = new int[n];
         int i = 0;
         Traslado t;
-        while(i <= n) {
-            t = TrasladosPorGanancia.obtener(i);
-            SumatoriaDeTraslados += t.gananciaNeta;
-            despacho.add(t.id);
-            TrasladosPorGanancia.eliminarElemento(i);
-            TrasladosPorAntiguedad.eliminarElemento(i);
-            i++;
-        }
+        
         return null;
     }
 

@@ -22,9 +22,11 @@ public class Heap<T> {
     }
 
     public void heapify(T actual, int indice) {
-        if (indice > 0) {
+        if (indice >= 0) {
             siftDown(actual, indice);
-            heapify(listaHeap.get(indice - 1), indice - 1);
+            if (indice >= 1) {
+                heapify(listaHeap.get(indice - 1), indice - 1);
+            }
         }
     }
 
@@ -49,7 +51,7 @@ public class Heap<T> {
             cantHijos++;
         }
         if (hijoIzq(indice) < elementos) {
-            hijoIzquierdo = listaHeap.get(hijoDer(indice));
+            hijoIzquierdo = listaHeap.get(hijoIzq(indice));
             cantHijos++;
         }
         if (cantHijos == 2) {
@@ -73,7 +75,7 @@ public class Heap<T> {
             cantHijos++;
         }
         if (hijoIzq(indice) < elementos) {
-            hijoIzquierdo = listaHeap.get(hijoDer(indice));
+            hijoIzquierdo = listaHeap.get(hijoIzq(indice));
             cantHijos++;
         }
         if (cantHijos == 2) {
@@ -88,7 +90,7 @@ public class Heap<T> {
     }
 
     public int padre(int i) {
-        if(i - 1 < 0) {
+        if (i - 1 < 0) {
             return -1;
         } else {
             return (i - 1) / 2;
@@ -117,7 +119,7 @@ public class Heap<T> {
         T padre = null;
         if (posPadre >= 0) {
             padre = listaHeap.get(posPadre);
-            if (1 != prioridad.comparar(actual, padre)) {
+            if (1 == prioridad.comparar(actual, padre)) {
                 listaHeap.set(posPadre, actual);
                 listaHeap.set(indice, padre);
                 siftUp(actual, posPadre);
