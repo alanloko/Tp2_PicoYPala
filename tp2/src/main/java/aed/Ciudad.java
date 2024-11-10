@@ -3,9 +3,14 @@ package aed;
 public class Ciudad {
     int Ciudad;
     int Redituabilidad;
-
-    public Ciudad(int i, int Ganancia, int Perdida) {
+    int IndexCiudad;
+    int ganancia;
+    int perdida;
+    public Ciudad(int i, int red, int g, int p) {
         Ciudad = i;
-        Redituabilidad = Ganancia - Perdida;
+        IndexCiudad = i;
+        Redituabilidad = red; 
+        ganancia = g;
+        perdida = p;
     }
 }

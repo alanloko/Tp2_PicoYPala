@@ -17,20 +17,26 @@ public class Heap<T> {
         listaHeap = new ArrayList<T>();
         MaxHeap = esMaxHeap;
         esHeapCiudad = HeapCiudad;
-        for (int i = 0; i < elementos; i++) {
-            listaHeap.add(t[i]);
-            Traslado obj = (Traslado) t[i];
-            if (esMaxHeap) {
-                obj.IndexRedituable = i;
-            } else {
-                obj.IndexAntiguedad = i;
+        if (!esHeapCiudad) {
+            for (int i = 0; i < elementos; i++) {
+                listaHeap.add(t[i]);
+                Traslado obj = (Traslado) t[i];
+                if (esMaxHeap) {
+                    obj.IndexRedituable = i;
+                } else {
+                    obj.IndexAntiguedad = i;
+                }
+            }
+        } else {
+            for (int i = 0; i < elementos; i++) {
+                listaHeap.add(t[i]);
             }
         }
         // arranco en el anteultimo nivel, en su ultimo elemento
         if (elementos != 0) {
             heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
         }
-        
+
     }
 
     public void heapify(T actual, int indice) {
@@ -62,6 +68,11 @@ public class Heap<T> {
                         obj2.IndexAntiguedad = indice;
                     }
                     siftDown(actual, posicionHijoMayor);
+                } else {
+                    Ciudad obj1 = (Ciudad) actual;
+                    Ciudad obj2 = (Ciudad) hijo;
+                    obj1.IndexCiudad = posicionHijoMayor;
+                    obj2.IndexCiudad = indice;
                 }
             }
         }
@@ -132,11 +143,19 @@ public class Heap<T> {
     }
 
     public void AgregarElementos(T[] t) {
-        elementos += t.length;
         for (int i = 0; i < t.length; i++) {
+            if (!esHeapCiudad) {
+                Traslado obj = (Traslado) t[i];
+                if (MaxHeap) {
+                    obj.IndexRedituable = elementos + i;
+                } else {
+                    obj.IndexAntiguedad = elementos + i;
+                }
+            }
             listaHeap.add(t[i]);
             siftUp(t[i], listaHeap.size() - 1);
         }
+        elementos += t.length;
     }
 
     public void siftUp(T actual, int indice) {
@@ -159,6 +178,11 @@ public class Heap<T> {
                         obj1.IndexAntiguedad = posPadre;
                         obj2.IndexAntiguedad = indice;
                     }
+                } else {
+                    Ciudad obj1 = (Ciudad) actual;
+                    Ciudad obj2 = (Ciudad) padre;
+                    obj1.IndexCiudad = posPadre;
+                    obj2.IndexCiudad = indice;
                 }
                 siftUp(actual, posPadre);
             }
@@ -167,9 +191,12 @@ public class Heap<T> {
 
     public int[] listaOrdenada() {
         int[] listaOrdenada = new int[elementos];
-        for (int i = 0; i < elementos; i++) {
+        int i = 0;
+        while (elementos != 0) {
             Traslado t = (Traslado) this.pop();
             listaOrdenada[i] = t.id;
+            i++;
+            elementos--;
         }
         return listaOrdenada;
     }
@@ -199,9 +226,26 @@ public class Heap<T> {
         T obj = listaHeap.get(elementos - 1);
         listaHeap.set(0, obj);
         listaHeap.remove(elementos - 1);
-        siftDown(obj, 0);
         elementos--;
+        siftDown(obj, 0);
         return priori;
     }
 
+    public void modificarCiudades(int indice, int credito, boolean esGanancia) {
+        if (esGanancia) {
+            Ciudad obj = (Ciudad) listaHeap.get(indice);
+            obj.Redituabilidad += credito;
+            obj.ganancia += credito;
+            siftUp(listaHeap.get(indice), indice);
+        } else {
+            Ciudad obj = (Ciudad) listaHeap.get(indice);
+            obj.Redituabilidad -= credito;
+            obj.perdida += credito;
+            siftDown(listaHeap.get(indice), indice);
+        }
+    }
+
+    public T peak() {
+        return listaHeap.get(0);
+    }
 }

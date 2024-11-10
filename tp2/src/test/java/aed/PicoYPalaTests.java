@@ -46,12 +46,14 @@ public class PicoYPalaTests {
     void nuevo_maxheap_vacio() {
         Traslado[] listaT  = new Traslado[]{};
         Heap<Traslado> maxheap = new Heap<Traslado>(listaT, true, new Comparador<>(true, false),false);
+        Heap<Traslado> minheap = new Heap<Traslado>(listaT, false, new Comparador<>(false, false),false);
         Traslado[] nuevosTraslados = new Traslado[] {
             new Traslado(1, 0, 1, 200, 15),
             new Traslado(2, 0, 1, 100, 40),
             new Traslado(3, 2, 0, 500, 30)
         };
         maxheap.AgregarElementos(nuevosTraslados);
+        minheap.AgregarElementos(nuevosTraslados);
 
         assertEquals(3, maxheap.elementos());
 
