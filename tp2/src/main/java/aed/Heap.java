@@ -6,19 +6,31 @@ public class Heap<T> {
     private ArrayList<T> listaHeap;
     private Comparador<T> prioridad;
     private int elementos;
+    private Boolean MaxHeap;
+    private Boolean esHeapCiudad;
 
-    public Heap(T[] t, Boolean esMaxHeap, Comparador<T> comparador) { // Bool esMaxHeap para saber si el constructor
-                                                                      // crea un heapMax o HeapMin
+    public Heap(T[] t, Boolean esMaxHeap, Comparador<T> comparador, Boolean HeapCiudad) { // Bool esMaxHeap para saber
+                                                                                          // si el constructor
+        // crea un heapMax o HeapMin
         prioridad = comparador;
         elementos = t.length;
         listaHeap = new ArrayList<T>();
+        MaxHeap = esMaxHeap;
+        esHeapCiudad = HeapCiudad;
         for (int i = 0; i < elementos; i++) {
             listaHeap.add(t[i]);
+            Traslado obj = (Traslado) t[i];
+            if (esMaxHeap) {
+                obj.IndexRedituable = i;
+            } else {
+                obj.IndexAntiguedad = i;
+            }
         }
         // arranco en el anteultimo nivel, en su ultimo elemento
         if (elementos != 0) {
             heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
         }
+        
     }
 
     public void heapify(T actual, int indice) {
@@ -37,7 +49,20 @@ public class Heap<T> {
             if (prioridad.comparar(actual, hijo) != 1) {
                 listaHeap.set(posicionHijoMayor, actual);
                 listaHeap.set(indice, hijo);
-                siftDown(actual, posicionHijoMayor);
+                if (!esHeapCiudad) {
+                    if (MaxHeap) {
+                        Traslado obj1 = (Traslado) actual;
+                        Traslado obj2 = (Traslado) hijo;
+                        obj1.IndexRedituable = posicionHijoMayor;
+                        obj2.IndexRedituable = indice;
+                    } else {
+                        Traslado obj1 = (Traslado) actual;
+                        Traslado obj2 = (Traslado) hijo;
+                        obj1.IndexAntiguedad = posicionHijoMayor;
+                        obj2.IndexAntiguedad = indice;
+                    }
+                    siftDown(actual, posicionHijoMayor);
+                }
             }
         }
     }
@@ -122,6 +147,19 @@ public class Heap<T> {
             if (1 == prioridad.comparar(actual, padre)) {
                 listaHeap.set(posPadre, actual);
                 listaHeap.set(indice, padre);
+                if (!esHeapCiudad) {
+                    if (MaxHeap) {
+                        Traslado obj1 = (Traslado) actual;
+                        Traslado obj2 = (Traslado) padre;
+                        obj1.IndexRedituable = posPadre;
+                        obj2.IndexRedituable = indice;
+                    } else {
+                        Traslado obj1 = (Traslado) actual;
+                        Traslado obj2 = (Traslado) padre;
+                        obj1.IndexAntiguedad = posPadre;
+                        obj2.IndexAntiguedad = indice;
+                    }
+                }
                 siftUp(actual, posPadre);
             }
         }

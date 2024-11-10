@@ -45,7 +45,7 @@ public class PicoYPalaTests {
     @Test
     void nuevo_maxheap_vacio() {
         Traslado[] listaT  = new Traslado[]{};
-        Heap<Traslado> maxheap = new Heap<Traslado>(listaT, true, new Comparador<>(true, false));
+        Heap<Traslado> maxheap = new Heap<Traslado>(listaT, true, new Comparador<>(true, false),false);
         Traslado[] nuevosTraslados = new Traslado[] {
             new Traslado(1, 0, 1, 200, 15),
             new Traslado(2, 0, 1, 100, 40),
@@ -66,7 +66,8 @@ public class PicoYPalaTests {
             new Traslado(2, 0, 1, 100, 40),
             new Traslado(3, 2, 0, 500, 30)
         };
-        Heap<Traslado> maxheap = new Heap<Traslado>(listaT, true, new Comparador<>(true, false));
+        Heap<Traslado> maxheap = new Heap<Traslado>(listaT, true, new Comparador<>(true, false),false);
+        Heap<Traslado> minHeap = new Heap<Traslado>(listaT, false, new Comparador<>(false, false),false);
 
 
         assertEquals(3, maxheap.elementos());
@@ -74,6 +75,9 @@ public class PicoYPalaTests {
         assertTrue(maxheap.obtener(0).compareTo(listaT[2]));
         assertTrue(maxheap.obtener(1).compareTo(listaT[1]));
         assertTrue(maxheap.obtener(2).compareTo(listaT[0]));
+        assertTrue(minHeap.obtener(0).compareTo(listaT[0]));
+        assertTrue(minHeap.obtener(1).compareTo(listaT[1]));
+        assertTrue(minHeap.obtener(2).compareTo(listaT[2]));
 
     }
 

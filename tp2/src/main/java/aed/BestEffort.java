@@ -16,11 +16,11 @@ public class BestEffort {
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
         Ciudad[] c = new Ciudad[0];
-        Heap<Ciudad> Redituabilidad = new Heap<>(c, true, new Comparador<>(true,true));
+        Heap<Ciudad> Redituabilidad = new Heap<>(c, true, new Comparador<>(true,true),  true);
         GananciaDeCiudades = new int[cantCiudades];
         PerdidaDeCiudades = new int[cantCiudades];
-        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(true,false));
-        TrasladosPorGanancia = new Heap<Traslado>(traslados,true,new Comparador<>(true,false));
+        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(true,false), false);
+        TrasladosPorGanancia = new Heap<Traslado>(traslados,true,new Comparador<>(true,false), false);
         SumatoriaDeTraslados = 0;
         CantDeTraslados = 0;
     }
