@@ -21,7 +21,7 @@ public class BestEffort {
             Ciudades[i] = c;
         }
         Redituabilidad = new Heap<>(Ciudades, true, new Comparador<>(true, true), true);
-        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(true, false), false);
+        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(false, false), false);
         TrasladosPorGanancia = new Heap<Traslado>(traslados, true, new Comparador<>(true, false), false);
         SumatoriaDeTraslados = 0;
         CantDeTraslados = 0;

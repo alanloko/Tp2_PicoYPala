@@ -203,14 +203,15 @@ public class Heap<T> {
 
     public void eliminarElemento(int i) {
         if (i < elementos - 1) {
-            T obj = listaHeap.get(i);
-            listaHeap.set(i, listaHeap.get(elementos - 1));
+            T obj = listaHeap.get(elementos - 1);
+            listaHeap.set(i, obj);
             listaHeap.remove(elementos - 1);
+            elementos--;
             siftDown(obj, i);
         } else {
             listaHeap.remove(elementos - 1);
+            elementos--;
         }
-        elementos--;
     }
 
     public T obtener(int i) {
