@@ -151,7 +151,7 @@ public class Heap<T> {
                 } else {
                     obj.IndexAntiguedad = elementos + i;
                 }
-            }
+            } 
             listaHeap.add(t[i]);
             siftUp(t[i], listaHeap.size() - 1);
         }

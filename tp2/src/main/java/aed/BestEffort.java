@@ -79,7 +79,7 @@ public class BestEffort {
                 CiudaddesConMayorPerdida.clear();
                 CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
                 mayorPerdidaActual = Ciudades[destino].perdida;
-            } else if (Ciudades[destino].perdida == Ciudades[CiudaddesConMayorPerdida.get(0)].perdida) {
+            } else if (Ciudades[destino].perdida == mayorPerdidaActual) {
                 CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
             } 
         } else {
@@ -93,7 +93,7 @@ public class BestEffort {
                 CiudaddesConMayorGanancia.clear();
                 CiudaddesConMayorGanancia.add(Ciudades[origen].Ciudad);
                 mayorGananciaActual = Ciudades[origen].ganancia;
-            } else if (Ciudades[origen].ganancia == Ciudades[CiudaddesConMayorGanancia.get(0)].ganancia) {
+            } else if (Ciudades[origen].ganancia == mayorGananciaActual) {
                 CiudaddesConMayorGanancia.add(Ciudades[origen].Ciudad);
             }
         } else {
