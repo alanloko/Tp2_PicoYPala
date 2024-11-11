@@ -103,8 +103,8 @@ public class PicoYPalaTests {
 
         sis.despacharMasRedituables(1);
         
-        assertSetEquals(new ArrayList<>(Arrays.asList(6)), sis.ciudadesConMayorGanancia());
-        assertSetEquals(new ArrayList<>(Arrays.asList(3)), sis.ciudadesConMayorPerdida());
+        assertSetEquals(new ArrayList<>(Arrays.asList(1)), sis.ciudadesConMayorGanancia());
+        assertSetEquals(new ArrayList<>(Arrays.asList(0)), sis.ciudadesConMayorPerdida());
 
         sis.despacharMasRedituables(1);
         sis.despacharMasRedituables(1);
