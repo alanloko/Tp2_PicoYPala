@@ -14,11 +14,11 @@ public class BestEffort {
     int CantDeTraslados;
     int mayorGananciaActual;
     int mayorPerdidaActual;
-    
+
     public BestEffort(int cantCiudades, Traslado[] traslados) {
         Ciudades = new Ciudad[cantCiudades];
         for (int i = 0; i < cantCiudades; i++) {
-            Ciudad c = new Ciudad(i, 0, 0 ,0);
+            Ciudad c = new Ciudad(i, 0, 0, 0);
             Ciudades[i] = c;
         }
         Redituabilidad = new Heap<>(Ciudades, true, new Comparador<>(true, true), true);
@@ -38,6 +38,9 @@ public class BestEffort {
     }
 
     public int[] despacharMasRedituables(int n) {
+        if (n > TrasladosPorGanancia.elementos()) {
+            n = TrasladosPorGanancia.elementos();
+        } 
         int[] despacho = new int[n];
         int i = 0;
         while (n > 0 && TrasladosPorGanancia.elementos() > 0) {
@@ -57,6 +60,9 @@ public class BestEffort {
     }
 
     public int[] despacharMasAntiguos(int n) {
+        if (n > TrasladosPorAntiguedad.elementos()) {
+            n = TrasladosPorAntiguedad.elementos();
+        } 
         int[] despacho = new int[n];
         int i = 0;
         while (n > 0 && TrasladosPorAntiguedad.elementos() > 0) {
@@ -74,6 +80,7 @@ public class BestEffort {
         }
         return despacho;
     }
+
     public void modificarPerdida(int destino) {
         if (CiudaddesConMayorPerdida.size() > 0) {
             if (Ciudades[destino].perdida > mayorPerdidaActual) {
@@ -82,12 +89,13 @@ public class BestEffort {
                 mayorPerdidaActual = Ciudades[destino].perdida;
             } else if (Ciudades[destino].perdida == mayorPerdidaActual) {
                 CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
-            } 
+            }
         } else {
             CiudaddesConMayorPerdida.add(destino);
             mayorPerdidaActual = Ciudades[destino].perdida;
         }
     }
+
     public void modificarGanancia(int origen) {
         if (CiudaddesConMayorGanancia.size() > 0) {
             if (Ciudades[origen].ganancia > mayorGananciaActual) {
