@@ -55,25 +55,22 @@ public class Heap<T> {
             if (prioridad.comparar(actual, hijo) != 1) {
                 listaHeap.set(posicionHijoMayor, actual);
                 listaHeap.set(indice, hijo);
-                if (!esHeapCiudad) {
-                    if (MaxHeap) {
-                        Traslado obj1 = (Traslado) actual;
-                        Traslado obj2 = (Traslado) hijo;
-                        obj1.IndexRedituable = posicionHijoMayor;
-                        obj2.IndexRedituable = indice;
-                    } else {
-                        Traslado obj1 = (Traslado) actual;
-                        Traslado obj2 = (Traslado) hijo;
-                        obj1.IndexAntiguedad = posicionHijoMayor;
-                        obj2.IndexAntiguedad = indice;
-                    }
-                    siftDown(actual, posicionHijoMayor);
-                } else {
-                    Ciudad obj1 = (Ciudad) actual;
-                    Ciudad obj2 = (Ciudad) hijo;
-                    obj1.IndexCiudad = posicionHijoMayor;
-                    obj2.IndexCiudad = indice;
-                }
+                swap(actual,hijo,indice,posicionHijoMayor);
+                siftDown(actual, posicionHijoMayor);
+
+            }
+        }
+    }
+    public void siftUp(T actual, int indice) {
+        int posPadre = padre(indice);
+        T padre = null;
+        if (posPadre >= 0) {
+            padre = listaHeap.get(posPadre);
+            if (1 == prioridad.comparar(actual, padre)) {
+                listaHeap.set(posPadre, actual);
+                listaHeap.set(indice, padre);
+                swap(actual,padre,indice, posPadre);
+                siftUp(actual, posPadre);
             }
         }
     }
@@ -158,37 +155,26 @@ public class Heap<T> {
         elementos += t.length;
     }
 
-    public void siftUp(T actual, int indice) {
-        int posPadre = padre(indice);
-        T padre = null;
-        if (posPadre >= 0) {
-            padre = listaHeap.get(posPadre);
-            if (1 == prioridad.comparar(actual, padre)) {
-                listaHeap.set(posPadre, actual);
-                listaHeap.set(indice, padre);
-                if (!esHeapCiudad) {
-                    if (MaxHeap) {
-                        Traslado obj1 = (Traslado) actual;
-                        Traslado obj2 = (Traslado) padre;
-                        obj1.IndexRedituable = posPadre;
-                        obj2.IndexRedituable = indice;
-                    } else {
-                        Traslado obj1 = (Traslado) actual;
-                        Traslado obj2 = (Traslado) padre;
-                        obj1.IndexAntiguedad = posPadre;
-                        obj2.IndexAntiguedad = indice;
-                    }
-                } else {
-                    Ciudad obj1 = (Ciudad) actual;
-                    Ciudad obj2 = (Ciudad) padre;
-                    obj1.IndexCiudad = posPadre;
-                    obj2.IndexCiudad = indice;
-                }
-                siftUp(actual, posPadre);
+    public void swap(T actual, T cambio, int indice, int posCambio) {
+        if (!esHeapCiudad) {
+            if (MaxHeap) {
+                Traslado obj1 = (Traslado) actual;
+                Traslado obj2 = (Traslado) cambio;
+                obj1.IndexRedituable = posCambio;
+                obj2.IndexRedituable = indice;
+            } else {
+                Traslado obj1 = (Traslado) actual;
+                Traslado obj2 = (Traslado) cambio;
+                obj1.IndexAntiguedad = posCambio;
+                obj2.IndexAntiguedad = indice;
             }
+        } else {
+            Ciudad obj1 = (Ciudad) actual;
+            Ciudad obj2 = (Ciudad) cambio;
+            obj1.IndexCiudad = posCambio;
+            obj2.IndexCiudad = indice;
         }
     }
-
     public int[] listaOrdenada() {
         int[] listaOrdenada = new int[elementos];
         int i = 0;

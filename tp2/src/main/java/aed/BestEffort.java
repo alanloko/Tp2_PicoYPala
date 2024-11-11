@@ -14,6 +14,7 @@ public class BestEffort {
     int CantDeTraslados;
     int mayorGananciaActual;
     int mayorPerdidaActual;
+    
     public BestEffort(int cantCiudades, Traslado[] traslados) {
         Ciudades = new Ciudad[cantCiudades];
         for (int i = 0; i < cantCiudades; i++) {
