@@ -175,18 +175,7 @@ public class Heap<T> {
             obj2.IndexCiudad = indice;
         }
     }
-    public int[] listaOrdenada() {
-        int[] listaOrdenada = new int[elementos];
-        int i = 0;
-        while (elementos != 0) {
-            Traslado t = (Traslado) this.pop();
-            listaOrdenada[i] = t.id;
-            i++;
-            elementos--;
-        }
-        return listaOrdenada;
-    }
-
+    
     public void eliminarElemento(int i) {
         if (i < elementos - 1) {
             T obj = listaHeap.get(elementos - 1);
@@ -216,20 +205,6 @@ public class Heap<T> {
         elementos--;
         siftDown(obj, 0);
         return priori;
-    }
-
-    public void modificarCiudades(int indice, int credito, boolean esGanancia) {
-        if (esGanancia) {
-            Ciudad obj = (Ciudad) listaHeap.get(indice);
-            obj.Redituabilidad += credito;
-            obj.ganancia += credito;
-            siftUp(listaHeap.get(indice), indice);
-        } else {
-            Ciudad obj = (Ciudad) listaHeap.get(indice);
-            obj.Redituabilidad -= credito;
-            obj.perdida += credito;
-            siftDown(listaHeap.get(indice), indice);
-        }
     }
 
     public T peak() {
