@@ -13,7 +13,7 @@ public class BestEffortTests {
     int cantCiudades;
     Traslado[] listaTraslados;
     ArrayList<Integer> actual;
-
+    
 
     @BeforeEach
     void init(){
@@ -37,7 +37,7 @@ public class BestEffortTests {
             for (int e2 : s2) {
                 if (e1 == e2) encontrado = true;
             }
-            assertTrue(encontrado, "No se encontró el elemento " +  e1 + " en el arreglo " + s2.toString());
+            assertTrue(encontrado, "No se encontró el elemento " + e1 + " en el arreglo " + s2.toString());
         }
     }
 

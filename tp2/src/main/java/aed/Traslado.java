@@ -17,7 +17,7 @@ public class Traslado {
         this.gananciaNeta = gananciaNeta;
         this.timestamp = timestamp;
     }
-    public Traslado(int id, int origen, int destino, int gananciaNeta, int timestamp,int Index){
+    public Traslado(int id, int origen, int destino, int gananciaNeta, int timestamp, int Index){
         this.id = id;
         this.origen = origen;
         this.destino = destino;
