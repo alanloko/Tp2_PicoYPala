@@ -34,9 +34,21 @@ public class Heap<T> {
         }
         // arranco en el anteultimo nivel, en su ultimo elemento
         if (elementos != 0) {
-            heapify(listaHeap.get(padre(elementos - 1)), elementos - 1);
+            //heapify(listaHeap.get(padre(elementos - 1)), padre(elementos - 1));
+            heapify(listaHeap.get(primerElemDelUltimoNivel() - 1), primerElemDelUltimoNivel() - 1);
         }
 
+    }
+
+    public int primerElemDelUltimoNivel() {
+        int potencia = 1;
+        while(potencia < elementos) {
+            potencia *= 2;
+        }
+        if(potencia == 2) {
+            return 1;
+        }
+        return (potencia / 2) - 1;
     }
 
     public void heapify(T actual, int indice) {
