@@ -8,12 +8,7 @@ public class BestEffort {
     Heap<Traslado> TrasladosPorGanancia;
     Heap<Ciudad> Redituabilidad;
     Ciudad[] Ciudades;
-    ArrayList<Integer> CiudaddesConMayorGanancia;
-    ArrayList<Integer> CiudaddesConMayorPerdida;
-    int SumatoriaDeTraslados;
-    int CantDeTraslados;
-    int mayorGananciaActual;
-    int mayorPerdidaActual;
+    Estadisticas stats;
 
     public BestEffort(int cantCiudades, Traslado[] traslados) {
         // Inicializamos las ciudades, todas con ganancia y perdida en 0
@@ -26,13 +21,9 @@ public class BestEffort {
         Redituabilidad = new Heap<>(Ciudades, true, new Comparador<>(true, true), true);
         TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(false, false), false);
         TrasladosPorGanancia = new Heap<Traslado>(traslados, true, new Comparador<>(true, false), false);
-        // Variables Varias necesarias para el llamado de ciertas funciones
-        SumatoriaDeTraslados = 0;
-        CantDeTraslados = 0;
-        CiudaddesConMayorGanancia = new ArrayList<>();
-        CiudaddesConMayorPerdida = new ArrayList<>();
-        mayorGananciaActual = 0;
-        mayorPerdidaActual = 0;
+        // Inicialización de Estadisticas
+        stats = new Estadisticas();
+        
     }
 
     public void registrarTraslados(Traslado[] traslados) {
@@ -55,8 +46,8 @@ public class BestEffort {
             modificarGanancia(obj.origen); // Actualización de las listas de mayor ganancia y perdida
             modificarPerdida(obj.destino);
             despacho[i] = obj.id;
-            SumatoriaDeTraslados += obj.gananciaNeta;
-            CantDeTraslados++;
+            stats.SumatoriaDeTraslados += obj.gananciaNeta;
+            stats.CantDeTraslados++;
             i++;
             n--;
         }
@@ -78,8 +69,8 @@ public class BestEffort {
             modificarGanancia(obj.origen); // Actualización de las listas de mayor ganancia y perdida
             modificarPerdida(obj.destino);
             despacho[i] = obj.id;
-            SumatoriaDeTraslados += obj.gananciaNeta;
-            CantDeTraslados++;
+            stats.SumatoriaDeTraslados += obj.gananciaNeta;
+            stats.CantDeTraslados++;
             i++;
             n--;
         }
@@ -87,32 +78,32 @@ public class BestEffort {
     }
 
     public void modificarPerdida(int destino) {
-        if (CiudaddesConMayorPerdida.size() > 0) { // si no es mayor a 0, es la primer ciudad ingresada
-            if (Ciudades[destino].perdida > mayorPerdidaActual) { // si es mayor, eliminamos la lista y empezamos una nueva con el nuevo valor mas alto
-                CiudaddesConMayorPerdida.clear();
-                CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
-                mayorPerdidaActual = Ciudades[destino].perdida;
-            } else if (Ciudades[destino].perdida == mayorPerdidaActual) { // si es igual, la agregamos a la lista
-                CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
+        if (stats.CiudaddesConMayorPerdida.size() > 0) { // si no es mayor a 0, es la primer ciudad ingresada
+            if (Ciudades[destino].perdida > stats.mayorPerdidaActual) { // si es mayor, eliminamos la lista y empezamos una nueva con el nuevo valor mas alto
+                stats.CiudaddesConMayorPerdida.clear();
+                stats.CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
+                stats.mayorPerdidaActual = Ciudades[destino].perdida;
+            } else if (Ciudades[destino].perdida == stats.mayorPerdidaActual) { // si es igual, la agregamos a la lista
+                stats.CiudaddesConMayorPerdida.add(Ciudades[destino].Ciudad);
             }
         } else {
-            CiudaddesConMayorPerdida.add(destino);
-            mayorPerdidaActual = Ciudades[destino].perdida;
+            stats.CiudaddesConMayorPerdida.add(destino);
+            stats.mayorPerdidaActual = Ciudades[destino].perdida;
         }
     }
 
     public void modificarGanancia(int origen) {
-        if (CiudaddesConMayorGanancia.size() > 0) { // si no es mayor a 0, es la primer ciudad ingresada
-            if (Ciudades[origen].ganancia > mayorGananciaActual) { // si es mayor, eliminamos la lista y empezamos una nueva con el nuevo valor mas alto
-                CiudaddesConMayorGanancia.clear();
-                CiudaddesConMayorGanancia.add(Ciudades[origen].Ciudad);
-                mayorGananciaActual = Ciudades[origen].ganancia;
-            } else if (Ciudades[origen].ganancia == mayorGananciaActual) { // si es igual, la agregamos a la lista
-                CiudaddesConMayorGanancia.add(Ciudades[origen].Ciudad);
+        if (stats.CiudaddesConMayorGanancia.size() > 0) { // si no es mayor a 0, es la primer ciudad ingresada
+            if (Ciudades[origen].ganancia > stats.mayorGananciaActual) { // si es mayor, eliminamos la lista y empezamos una nueva con el nuevo valor mas alto
+                stats.CiudaddesConMayorGanancia.clear();
+                stats.CiudaddesConMayorGanancia.add(Ciudades[origen].Ciudad);
+                stats.mayorGananciaActual = Ciudades[origen].ganancia;
+            } else if (Ciudades[origen].ganancia == stats.mayorGananciaActual) { // si es igual, la agregamos a la lista
+                stats.CiudaddesConMayorGanancia.add(Ciudades[origen].Ciudad);
             }
         } else {
-            CiudaddesConMayorGanancia.add(origen);
-            mayorGananciaActual = Ciudades[origen].ganancia;
+            stats.CiudaddesConMayorGanancia.add(origen);
+            stats.mayorGananciaActual = Ciudades[origen].ganancia;
         }
     }
 
@@ -121,15 +112,15 @@ public class BestEffort {
     }
 
     public ArrayList<Integer> ciudadesConMayorGanancia() {
-        return CiudaddesConMayorGanancia;
+        return stats.CiudaddesConMayorGanancia;
     }
 
     public ArrayList<Integer> ciudadesConMayorPerdida() {
-        return CiudaddesConMayorPerdida;
+        return stats.CiudaddesConMayorPerdida;
     }
 
     public int gananciaPromedioPorTraslado() {
-        return SumatoriaDeTraslados / CantDeTraslados;
+        return stats.SumatoriaDeTraslados / stats.CantDeTraslados;
     }
 
     // aux 
