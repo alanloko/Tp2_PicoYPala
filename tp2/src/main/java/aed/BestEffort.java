@@ -47,7 +47,8 @@ public class BestEffort {
         int[] despacho = new int[n];
         int i = 0;
         while (n > 0 && TrasladosPorGanancia.elementos() > 0) {
-            Traslado obj = TrasladosPorGanancia.pop();
+            Traslado obj = TrasladosPorGanancia.obtener(0);
+            TrasladosPorGanancia.eliminarElemento(0);
             TrasladosPorAntiguedad.eliminarElemento(obj.IndexAntiguedad);
             modificarCiudades(Ciudades[obj.origen].IndexCiudad, obj.gananciaNeta, true); // Actualizacion de la cola de Prioridad Redituabilidad,
             modificarCiudades(Ciudades[obj.destino].IndexCiudad, obj.gananciaNeta, false); // Segun ganancian y perdida de 2 objetos diferentes
@@ -69,10 +70,11 @@ public class BestEffort {
         int[] despacho = new int[n];
         int i = 0;
         while (n > 0 && TrasladosPorAntiguedad.elementos() > 0) {
-            Traslado obj = TrasladosPorAntiguedad.pop();
+            Traslado obj = TrasladosPorAntiguedad.obtener(0);
+            TrasladosPorAntiguedad.eliminarElemento(0);
             TrasladosPorGanancia.eliminarElemento(obj.IndexRedituable);
             modificarCiudades(Ciudades[obj.origen].IndexCiudad, obj.gananciaNeta, true); // Actualizacion de la cola de Prioridad Redituabilidad,
-            modificarCiudades(Ciudades[obj.destino].IndexCiudad, obj.gananciaNeta, false); // Segun ganancian y perdida de 2 objetos diferentes
+            modificarCiudades(Ciudades[obj.destino].IndexCiudad, obj.gananciaNeta, false); // Segun ganancia y perdida de 2 objetos diferentes
             modificarGanancia(obj.origen); // Actualización de las listas de mayor ganancia y perdida
             modificarPerdida(obj.destino);
             despacho[i] = obj.id;

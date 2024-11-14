@@ -191,6 +191,7 @@ public class Heap<T> {
     public void eliminarElemento(int i) {
         if (i < elementos - 1) {
             T obj = listaHeap.get(elementos - 1);
+            swap(obtener(i), listaHeap.get(elementos - 1), i, elementos - 1);
             listaHeap.set(i, obj);
             listaHeap.remove(elementos - 1);
             elementos--;
