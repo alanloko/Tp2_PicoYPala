@@ -13,21 +13,21 @@ public class BestEffort {
     public BestEffort(int cantCiudades, Traslado[] traslados) {
         // Inicializamos las ciudades, todas con ganancia y perdida en 0
         Ciudades = new Ciudad[cantCiudades];
-        for (int i = 0; i < cantCiudades; i++) {
+        for (int i = 0; i < cantCiudades; i++) { // O(|C|)
             Ciudad c = new Ciudad(i, 0, 0, 0);
             Ciudades[i] = c;
         }
         // Ya con la lista de Ciudades y traslados, inicializamos los Heaps
-        Redituabilidad = new Heap<>(Ciudades, true, new Comparador<>(true, true), true);
-        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(false, false), false);
-        TrasladosPorGanancia = new Heap<Traslado>(traslados, true, new Comparador<>(true, false), false);
+        Redituabilidad = new Heap<>(Ciudades, true, new Comparador<>(true, true), true); // O(|C|)
+        TrasladosPorAntiguedad = new Heap<Traslado>(traslados, false, new Comparador<>(false, false), false); // O(|T|)
+        TrasladosPorGanancia = new Heap<Traslado>(traslados, true, new Comparador<>(true, false), false); // O(|T|)
         // Inicialización de Estadisticas
-        stats = new Estadisticas();
-        
+        stats = new Estadisticas(); // O(1)
+        // O(|C| + |C| + |T| + |T| + 1) -> O(|C| + |T|)
     }
 
     public void registrarTraslados(Traslado[] traslados) {
-        TrasladosPorAntiguedad.AgregarElementos(traslados);
+        TrasladosPorAntiguedad.AgregarElementos(traslados); //
         TrasladosPorGanancia.AgregarElementos(traslados);
     }
 

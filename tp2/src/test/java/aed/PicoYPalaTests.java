@@ -197,7 +197,7 @@ public class PicoYPalaTests {
             new Traslado(12, 1, 0, 150000, 1)
         };
         sis.registrarTraslados(nuevos);
-        assertEquals(7, sis.CantDeTraslados);
+        assertEquals(5, sis.stats.CantDeTraslados);
         assertSetEquals(new ArrayList<>(Arrays.asList(0)), sis.ciudadesConMayorGanancia());     // FALTA CAMBIAR
         assertSetEquals(new ArrayList<>(Arrays.asList(4)), sis.ciudadesConMayorPerdida());      // FALTA CAMBIAR
         assertEquals(0, sis.ciudadConMayorSuperavit());                                         // FALTA CAMBIAR
