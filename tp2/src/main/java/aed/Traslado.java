@@ -7,7 +7,7 @@ public class Traslado {
     int destino;
     int gananciaNeta;
     int timestamp;
-    int IndexRedituable;
+    int IndexRedituable; // Handlers agregados
     int IndexAntiguedad;
     
     public Traslado(int id, int origen, int destino, int gananciaNeta, int timestamp){
@@ -25,7 +25,7 @@ public class Traslado {
         this.timestamp = timestamp;
     }
 
-    public boolean compareTo(Traslado traslado){
+    public boolean compareTo(Traslado traslado){  // agregado para testing
         return (id == traslado.id && origen == traslado.origen && destino == traslado.destino && gananciaNeta == traslado.gananciaNeta && timestamp == traslado.timestamp && IndexRedituable == traslado.IndexRedituable && IndexAntiguedad == traslado.IndexAntiguedad);
         
     }
