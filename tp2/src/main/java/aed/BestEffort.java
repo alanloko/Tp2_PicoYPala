@@ -36,21 +36,21 @@ public class BestEffort {
         if (n > TrasladosPorGanancia.elementos()) { // si n es mayor, no queremos sobrepasarnos de memoria O(1)
             n = TrasladosPorGanancia.elementos();   // asignamos n a la cantidad de traslados totales O(1)
         } 
-        int[] despacho = new int[n]; // O(1)
-        int i = 0; // O(1)
+        int[] despacho = new int[n]; 
+        int i = 0;
         while (n > 0 && TrasladosPorGanancia.elementos() > 0) {  // O(n -> n <= |T|)
-            Traslado obj = TrasladosPorGanancia.obtener(0); // O(1) Obtener el primer elemento
+            Traslado obj = TrasladosPorGanancia.obtener(0); // Obtener el primer elemento
             TrasladosPorGanancia.eliminarElemento(0); // O(log(|T|))
             TrasladosPorAntiguedad.eliminarElemento(obj.IndexAntiguedad); // O(log(|T|))
             modificarCiudades(Ciudades[obj.origen].IndexCiudad, obj.gananciaNeta, true); // O(log(|C|)) Actualizacion de la cola de Prioridad Redituabilidad,
             modificarCiudades(Ciudades[obj.destino].IndexCiudad, obj.gananciaNeta, false); // O(log(|C|)) Segun ganancian y perdida de 2 objetos diferentes
             modificarGanancia(obj.origen); // O(1) Actualización de las listas de mayor ganancia y perdida
             modificarPerdida(obj.destino); // O(1)
-            despacho[i] = obj.id; // O(1)
-            stats.SumatoriaDeTraslados += obj.gananciaNeta; // O(1)
-            stats.CantDeTraslados++; // O(1)
-            i++; // O(1)
-            n--; // O(1)
+            despacho[i] = obj.id; 
+            stats.SumatoriaDeTraslados += obj.gananciaNeta; 
+            stats.CantDeTraslados++; 
+            i++; 
+            n--; 
         } // O(1 + 1 + 1 + 1 n*(1 + log(|T| + log(|T|) + log(|C|) + log(|C|) + 1 + 1 + 1 + 1 + 1 + 1))) -> O(n*(log(|T|) + log(|C|)))
         return despacho;
     }
@@ -128,14 +128,14 @@ public class BestEffort {
     // aux 
     public void modificarCiudades(int indice, int credito, boolean esGanancia) { // O(log(|C|))
         if (esGanancia) { // O(1) - Si es ganancia, puede ser que sea mayor a su padre, por lo que llamo a siftUp
-            Ciudad obj = Redituabilidad.obtener(indice); // O(1)
-            obj.Redituabilidad += credito; // O(1)
-            obj.ganancia += credito; // O(1)
+            Ciudad obj = Redituabilidad.obtener(indice); 
+            obj.Redituabilidad += credito; 
+            obj.ganancia += credito; 
             Redituabilidad.siftUp(Redituabilidad.obtener(indice), indice); // O(log(|C|))
         } else { // O(1) - Si es perdida, puede ser que sea menor a alguno de sus hijos, por lo que llamo a siftDown
-            Ciudad obj = Redituabilidad.obtener(indice); // O(1)
-            obj.Redituabilidad -= credito; // O(1)
-            obj.perdida += credito; // O(1)
+            Ciudad obj = Redituabilidad.obtener(indice); 
+            obj.Redituabilidad -= credito; 
+            obj.perdida += credito; 
             Redituabilidad.siftDown(Redituabilidad.obtener(indice), indice); // O(log(|C|))
         }
         // O(1 + 1 + 1 + log(|C|)) -> O(log|C|)
