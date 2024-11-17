@@ -27,6 +27,7 @@ public class BestEffortTests {
                                             new Traslado(5, 1, 0, 1000, 40),
                                             new Traslado(6, 1, 0, 1000, 41),
                                             new Traslado(7, 6, 3, 2000, 42)
+                                           
                                         };
     }
 

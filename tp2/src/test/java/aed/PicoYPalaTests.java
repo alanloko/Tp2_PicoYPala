@@ -285,7 +285,7 @@ public class PicoYPalaTests {
             };
             sis.registrarTraslados(nuevos);
         }
-        // eliminamos recursivamente de forma variada
+        // eliminamos de forma variada
         for (Integer i = 1; i <= 250; i++) {
             sis.despacharMasAntiguos(1);
             sis.despacharMasRedituables(1);
